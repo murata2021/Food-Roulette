@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Food Roulette</title>
+
+  <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/popper"></script>
+  <script src="https://unpkg.com/bootstrap"></script>
+
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="/static/stylesheets/style.css">
+  <link rel="shortcut icon" href="/static/favicon.ico">
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+<nav class="navbar navbar-expand">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">
+        <img src="data:image/png;base64,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" alt="logo" style="width:50px;z-index:-5;">
+        <span>Food Roulette</span>
+      </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      {% if request.endpoint != None %}
+      <li>
+        <form class="navbar-form navbar-right" action="/meals">
+          <input name="q" class="form-control" placeholder="Search Food" id="search">
+          <button class="btn btn-default">
+            <span class="fa fa-search"></span>
+          </button>
+        </form>
+      </li>
+      {% endif %}
+      {% if not g.user %}
+      <li><a href="/signup">Sign up</a></li>
+      <li><a href="/login">Log in</a></li>
+      {% else %}
+      <li>
+        <a href="/users/{{ g.user.id }}">
+          <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
+        </a>
+      </li>
+      <li><a href="/messages/new">New Message</a></li>
+      <li><a href="/logout">Log out</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  {% for category, message in get_flashed_messages(with_categories=True) %}
+  <div class="alert alert-{{ category }}">{{ message }}</div>
+  {% endfor %}
+
+  {% block content %}
+  {% endblock %}
+
+</div>
+</body>
+</html>

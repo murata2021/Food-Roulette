@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST" action="{{url_for('messages_add')}}">
+        {{ form.csrf_token }}
+        <div>
+          {% if form.text.errors %}
+            {% for error in form.text.errors %}
+              <span class="text-danger">
+            {{ error }}
+          </span>
+            {% endfor %}
+          {% endif %}
+          {{form.meal.label}}
+          {{form.meal(class="form-control")}}
+          {{form.restaurant.label}}
+          {{form.restaurant(class="form-control")}}
+          {{ form.text(placeholder="What's happening?", class="form-control", rows="3") }}
+        </div>
+        <button class="btn btn-outline-success btn-block">Add my message!</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+
+      let meal_select=document.getElementById('meal')
+      let restaurant_select=document.getElementById('restaurant')
+
+      meal_select.onchange=async function(){
+
+        meal=parseInt(meal_select.value)
+
+        fetch("/restaurants/"+meal).then(function(response){
+
+            response.json().then(function(data){
+                let optionHTML='<option value="'+'No Restaurant Selected'+'">'+'No Restaurant Selected'+'</option>';
+
+                for (let restaurant of data.restaurants){
+                    optionHTML+='<option value="'+restaurant.yelp_id+'">'+restaurant.name+'</option>';
+
+                }
+
+                restaurant_select.innerHTML=optionHTML;
+            })
+        }
+        
+        )
+      }
+  </script>
+
+{% endblock %}

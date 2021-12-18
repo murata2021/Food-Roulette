@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class='container' >
+    <div class="d-flex flex-row">
+        <img src="{{ user.image_url }}" alt="Image for {{ user.username }}" id="profile-avatar">
+    </div>
+</div>
+
+<div class="row full-width">
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-9">
+          <ul class="user-stats nav nav-pills">
+            <li class="stat">
+                <p class="small">Reviews</p>
+                <h4>
+                  <a href="">{{ user.messages | length }}</a>
+                </h4>
+              </li>
+              
+              <li class="stat">
+                <p class="small">Likes</p>
+                <h4>
+                  <a href=''>{{total_likes}}</a>
+
+                </h4>
+              </li>
+            <div class="ml-auto">
+              {% if g.user.id == user.id %}
+              <a href="/users/profile" class="btn btn-outline-secondary btn-sm" style="margin-left: 15px;">Edit Profile</a>
+              <form method="POST" action="/users/delete" class="form-inline">
+                <button class="btn btn-outline-danger ml-2 btn-sm" style="margin-left: 3px;">Delete Profile</button>
+              </form>
+              <a href="/messages/new" class="btn btn-outline-primary btn-sm" style="margin-left: 3px;">Write a Review</a>
+
+              {% endif %}
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>
+    
+
+<div class="container" >      
+    <div style="margin-top: 15px;">
+        <h4 id="sidebar-username">@{{ user.username }}</h4>
+        <p class="user-location"><span class="fa fa-map-marker"></span> {{user.location}}</p>
+        <a class="btn btn-success btn-sm" href="/users/{{user.id}}">Go back to @{{ user.username }}'s homepage</a>
+    </div>
+</div>
+  <div class="col-sm-6" style="margin-left: 300px; margin-top:-60px;">
+    <ul class="list-group" id="messages">
+
+      {% for message in messages %}
+
+        <li class="list-group-item">
+          <a href="/messages/{{ message.id }}" class="message-link"></a>
+
+          <a href="/users/{{ user.id }}">
+            <img src="{{ message.meal_liked.meal.image_url}}" alt="user image" class="timeline-image">
+          </a>
+
+          <div class="message-area">
+            
+            <p style="margin-top: 10px;"><b>{{ message.meal_liked.meal.meal_name}} {%if d[message.restaurant_info]%} @ {{d[message.restaurant_info]}} {%endif%}</b></p>
+            <p style="margin-top: 20px;">{{ message.text }}</p>
+            <p style="margin-left:350px; font-size: 10pt;">{{message.user_likes|length}} user(s) found it useful</p>
+            <p style="margin-left:200px;"><span class="text-muted">Posted by </span><a href="/users/{{ user.id }}">@{{ message.user.username }}</a> on <span class="text-muted">{{ message.timestamp.strftime('%d %B %Y') }}</span> </p>
+            
+
+          </div>
+          {%if g.user.id!=user.id%}
+          <form method="POST" action="/users/add_like/{{ message.id }}" id="messages-form">
+            <button class="
+              btn 
+              btn-sm 
+              {{'btn-primary' if message in g.user.likes else 'btn-secondary'}}"
+            >
+              <i class="fa fa-thumbs-up"></i> 
+            </button>
+          </form>
+          {% elif g.user.id == message.user.id %}
+            <form method="POST" action="/messages/{{message.id}}/delete" id="messages-form">
+            <button type="submit"style="margin-left:280px;" class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+            {%endif%}
+        </li>
+
+      {% endfor %}
+
+    </ul>
+  </div>
+{% endblock %}

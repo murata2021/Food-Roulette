@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="display-4">{{user.username}}'s favorite places for {{meal.meal_name}}</h2>
+
+<a style="margin-top: 10px;" class="btn btn-secondary btn-sm" href="/users/{{user.id}}/liked-food">Go back</a>
+
+{% if restaurants|length == 0 %}
+    <h3 style="margin-top: 10px;">Sorry, no restaurant found</h3>
+  {% else %}
+    
+    <div class="container  ">
+        <div class="row mt-5">
+            {%for restaurant in restaurants%}
+            <div class="col-4">
+                <div class="card" style="width:20rem;">
+                    <img src="{{restaurant.restaurant_photo}}" class="card-img-top image rounded float mb-2" alt="...">
+                    <div class="middle">
+                        <div class="text" style="font-size: small;"><a href="" class="text-decoration-none">{{restaurant.restaurant_name}}</a></div>
+                    </div>
+                    {%if g.user.id==user.id%}
+                    <form action="{{url_for('unlink_restaurant_meal',restaurant_yelp_id=restaurant.restaurant_yelp_id,meal_liked_id=meal_liked.id)}}" method="post" >
+                    <button class="btn btn-danger btn-sm" >Remove it from the list</button>
+                    </form>
+                    {%endif%}
+                    <a style="margin-top: 5px;" href="{{restaurant.restaurant_url}}" target="_blank" class="btn btn-primary btn-sm">Check on Yelp</a>
+
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+  {% endif %}
+{%endblock%}

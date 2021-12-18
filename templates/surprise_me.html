@@ -1,0 +1,49 @@
+
+{%extends 'base.html' %}
+
+{% block content %}
+
+
+<h2 class="display-4">{{meal["strMeal"]}}</h2>
+
+<div class="container  ">
+    <div class="row mt-5">
+
+        <div class="col-4">
+            <div class="card" style="width: 25rem;">
+                <img src="{{meal['strMealThumb']}}" class="image rounded float mb-2" alt="...">
+                <div class="middle">
+                    <div class="text" style="font-size: medium;"><a href="" class="text-decoration-none">{{meal["strMeal"]}}</a></div>
+                </div>
+            </div>
+            {%if user_liked_meal.is_active %}
+                <form action="/show-it/{{meal['strMeal']}}/restaurants" method="get" >
+                    <input type="text" name="address" placeholder="please enter an address">
+                    <button type="submit" formmethod="get" class="btn btn-info btn-sm" formaction="/show-it/{{meal['strMeal']}}/restaurants">Show restaurants</button>
+                    <button type="submit" class="btn btn-secondary btn-sm" formmethod="get" formaction="/surprise-me">Pass it</button>
+                </form>
+                {%else%}
+                <form action="/like-it/{{meal['strMeal']}}" method="post" >
+                    <input type="text" name="address" placeholder="please enter an address">
+                    <button type="submit" class="btn btn-success btn-sm">Like it</button>
+                    <button type="submit" class="btn btn-secondary btn-sm" formmethod="get" formaction="/surprise-me">Pass it</button>
+                </form>
+            {%endif%}
+
+        </div>
+        <div class="col">
+            <h4 ><span> <b> Area:</b></span> {{meal_object.cuisine.cuisine_name}}</h4>
+            <h4 ><span> <b> Category:</b></span> {{meal_object.category.category_name}}</h4>
+            <h6 class="mt-2">Ingredients</h6>
+            <ul>
+                {%for ingredient in ingredients%}
+                <li>{{ingredient}}</li>
+                {%endfor%}
+            </ul>
+            <a  class="btn btn-primary text-decoration-none" target="blank" style="margin-top: 10px;" href="{{url_for('check_reviews',meal_id=meal_object.id)}}">Click on the see reviews</a>
+
+        </div>
+    </div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <p>{{user.username}}</p> -->
+<div class='container'>
+    <div class="d-flex flex-row">
+        <img src="{{ user.image_url }}" alt="Image for {{ user.username }}" id="profile-avatar">
+    </div>
+</div>
+
+<div class="row full-width">
+    <div class="container">
+      <div class="row justify-content-end">
+        <div class="col-9">
+          <ul class="user-stats nav nav-pills">
+            <div class="ml-auto">
+              {% if g.user.id == user.id %}
+              <a href="/users/profile" class="btn btn-outline-secondary btn-sm" style="margin-left: 3px;">Edit Profile</a>
+              <form method="POST" action="/users/delete" class="form-inline">
+                <button class="btn btn-outline-danger ml-2 btn-sm" style="margin-left: 3px;">Delete Profile</button>
+              </form>
+              <a href="/messages/new" class="btn btn-outline-primary btn-sm" style="margin-left: 3px;">Write a Review</a>
+
+              {% endif %}
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>
+    
+
+<div class="container">      
+    <div style="margin-top: 15px;">
+        <h4 id="sidebar-username">@{{ user.username }}</h4>
+        <p class="user-location"><span class="fa fa-map-marker"></span> {{user.location}}</p>
+    </div>
+</div>
+
+      
+
+<!-- <a href="{{url_for('show_liked_meals',user_id=user.id)}}">Fav Meals</a>
+<a href="{{url_for('show_liked_restaurants',user_id=user.id)}}">Fav Restaurants</a> -->
+
+
+<div class="container" style='margin-top: 40px;'>
+    <div class="d-flex justify-content-center row" >
+        <div class="col parent">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{user.username}}'s reviews</h5>
+                  <p class="card-text">Check {{user.username}}'s reviews about meals and restaurants.</p>
+                  <a href="{{url_for('messages_show',user_id=user.id)}}" class="card-link align-self-end mt-auto">Check</a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col parent">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{user.username}}'s favorite meals</h5>
+                  <p class="card-text">Check {{user.username}}'s favorite meals.</p>
+                  <a href="{{url_for('show_liked_meals',user_id=user.id)}}" class="card-link align-self-end mt-auto">Check</a>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="col parent">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{user.username}}'s favorite restaurants</h5>
+                  <p class="card-text">Check {{user.username}}'s favorite restaurants.</p>
+                  <a href="{{url_for('show_liked_restaurants',user_id=user.id)}}" class="card-link align-self-end mt-auto">Check</a>
+                </div>
+            </div>
+        </div>
+        <div class="col parent">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">{{user.username}} found these reviews useful</h5>
+                  <p class="card-text">Check reviews that {{user.username}} found useful.</p>
+                  <a href="{{url_for('show_liked_messages',user_id=user.id)}}" class="card-link align-self-end mt-auto">Check</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container" style="margin: 50px;">
+
+    <div class="col-sm-6">
+        <ul class="list-group" id="messages">
+
+        <h1 class="display-2">REVIEWS</h1> 
+            
+        {% for message in messages %}
+
+            <li class="list-group-item">
+            <a href="/messages/{{ message.id }}" class="message-link"></a>
+
+            <a href="/users/{{ user.id }}">
+                <img src="{{ message.meal_liked.meal.image_url }}" alt="meal image" class="timeline-image">
+            </a>
+
+            <div class="message-area">
+                <a href="/users/{{ message.user.id }}">@{{ message.user.username }}</a>
+                <span class="text-muted">{{ message.timestamp.strftime('%d %B %Y') }}</span>
+                <p><b>{{message.meal_liked.meal.meal_name}}  ADD RESTAURANT FILTER HERE </b></p>
+                {{ message.text }}
+            </div>
+            <form method="POST" action="/users/add_like/{{ message.id }}" id="messages-form">
+                <button class="
+                btn 
+                btn-sm 
+                {{'btn-primary' if message in g.user.likes else 'btn-secondary'}}"
+                >
+                <i class="fa fa-thumbs-up"></i> 
+                </button>
+            </form>
+            </li>
+
+        {% endfor %}
+
+        </ul>
+    </div>
+</div> -->
+    {%endblock%}

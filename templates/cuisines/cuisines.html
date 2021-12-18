@@ -1,0 +1,24 @@
+{%extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="display-4">Cuisines</h2>
+
+<div class="container  ">
+    <div class="row mt-5">
+        {% for cuisine in cuisines%}
+        <div class="col-4">
+            <div class="card" style="width: 20rem;">
+                <img src="{{cuisine.cuisine_image}}" class="card-img-top image rounded float mb-2" alt="...">
+                <div class="middle">
+                    <div class="text" style="font-size: medium;"><a href="{{url_for('show_cuisine',cuisine_id=cuisine.cuisine_id)}}" class="text-decoration-none">{{cuisine.cuisine_name}}</a></div>
+                </div>
+            </div>
+            
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+{%endblock%}
+

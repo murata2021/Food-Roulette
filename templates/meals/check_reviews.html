@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<div class="container  ">
+    <div class="row mt-5">
+
+        <div class="col-2">
+            <div class="card" style="width: 10rem;">
+                <img src="{{meal.image_url}}" class="image rounded float mb-2" alt="...">
+                <div class="middle">
+                    <div class="text" style="font-size: medium;"><a href="#" class="text-decoration-none">{{meal.meal_name}}</a></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col">
+            <h4 class="display-6 mt-5">Reviews of {{meal.meal_name}}</h2>
+                {%if messages|length==0%}
+            <p style='margin-top: 30px;'>No reviews found</p>
+        {%else%}
+        </div>
+        
+    </div>
+    
+    <div class="col-sm-6" style="margin-left: 300px;">
+        
+        <ul class="list-group" id="messages">
+            
+
+            {% for message in messages %}
+
+            <li class="list-group-item">
+                <a href="/messages/{{ message.id }}" class="message-link"></a>
+
+                <a href="/users/{{message.user.id }}">
+                <img src="{{ message.meal_liked.meal.image_url}}" alt="user image" class="timeline-image">
+                </a>
+
+                <div class="message-area">
+                
+                <p style="margin-top: 10px;"><b>{{ message.meal_liked.meal.meal_name}} {%if d[message.restaurant_info]%} @ {{d[message.restaurant_info]}} {%endif%}</b></p>
+                <p style="margin-top: 20px;">{{ message.text }}</p>
+                <p style="margin-left:350px; font-size: 10pt;">{{message.user_likes|length}} user(s) found it useful</p>
+
+                <p style="margin-left:200px;"><span class="text-muted">Posted by </span><a href="/users/{{ message.user.id }}">@{{ message.user.username }}</a> on <span class="text-muted">{{ message.timestamp.strftime('%d %B %Y') }}</span> </p>
+                
+
+                </div>
+                {%if g.user.id!=message.user.id%}
+                <form method="POST" action="/users/add_like/{{ message.id }}" id="messages-form">
+                <button class="
+                    btn 
+                    btn-sm 
+                    {{'btn-primary' if message in g.user.likes else 'btn-secondary'}}"
+                >
+                    <i class="fa fa-thumbs-up"></i> 
+                </button>
+                </form>
+                {% elif g.user.id == message.user.id %}
+                <form method="POST" action="/messages/{{message.id}}/delete" id="messages-form">
+                <button type="submit"style="margin-left:280px;" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+                {%endif%}
+            </li>
+
+            {% endfor %}
+
+        </ul>
+    </div>
+    {%endif%}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul>
+    
+
+    <h2 class="display-4">{{meal.meal_name}}</h2>
+
+<div class="container  ">
+    <div class="row mt-5">
+
+        <div class="col-4">
+            <div class="card" style="width: 25rem;">
+                <img src="{{meal.image_url}}" class="image rounded float mb-2" alt="...">
+                <div class="middle">
+                    <div class="text" style="font-size: medium;"><a href="#" class="text-decoration-none">{{meal.meal_name}}</a></div>
+                </div>
+            </div>
+            {%if g.user%}
+            {%if user_liked_meal.is_active %}
+            <form action="/show-it/{{meal.meal_name}}/restaurants" method="get" >
+                <input type="text" name="address" placeholder="please enter an address">
+                <button type="submit" formmethod="get" class="btn btn-info btn-sm" formaction="/show-it/{{meal.meal_name}}/restaurants">Show restaurants</button>
+                <button type="submit" class="btn btn-secondary btn-sm" formmethod="get" formaction="/">Go Back</button>
+            </form>
+            {%else%}
+            <form action="/like-it/{{meal.meal_name}}" method="post" >
+                <input type="text" name="address" placeholder="please enter an address">
+                <button type="submit" class="btn btn-success btn-sm">Like it</button>
+                <button type="submit" class="btn btn-secondary btn-sm" formmethod="get" formaction="/">Go Back</button>
+            </form>
+            {%endif%}
+            {%else%}
+            <a  class="btn btn-primary text-decoration-none" href="/">Sign in/Sign up to check reviews</a>
+            {%endif%}
+
+        </div>
+        <div class="col">
+            <h4 ><span> <b> Area:</b></span> {{meal.cuisine.cuisine_name}}</h4>
+            <h4 ><span> <b> Category:</b></span> {{meal.category.category_name}}</h4>
+            <h6 class="mt-2">Ingredients</h6>
+            <ul>
+                {%for ingredient in ingredients%}
+                <li>{{ingredient}}</li>
+                {%endfor%}
+            </ul>
+            {%if g.user%}
+            <a  class="btn btn-primary text-decoration-none" target="blank" style="margin-top: 10px;" href="{{url_for('check_reviews',meal_id=meal.id)}}">Click on the see reviews</a>
+            {%endif%}
+        </div>
+        
+
+    </div>
+</div>
+
+
+
+</ul>
+{% endblock %}

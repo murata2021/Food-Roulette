@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="display-2">Search results for "{{search}}":</h2>
+  {% if meals|length == 0 %}
+    <h3>Sorry, no meals found</h3>
+  {% else %}
+    
+    <div class="container  ">
+        <div class="row mt-5">
+            {%for meal in meals%}
+            <div class="col-2">
+                <div class="card" style="width:auto;">
+                    <img src="{{meal.image_url}}" class="card-img-top image rounded float mb-2" alt="...">
+                    <div class="middle">
+                        <div class="text" style="font-size: small;"><a href="{{url_for('show_meal',meal_id=meal.id)}}" class="text-decoration-none">{{meal.meal_name}}</a></div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,94 @@
+{%extends 'base.html' %}
+
+{% block content %}
+{%if restaurants|length==0%}
+    <p class="display-6" style="font-size: 16pt;">No restaurants found <a href="/">Go to the homepage</a></p>
+
+{%else%}
+    
+<h2 class="display-4">Restaurants nearby {{typed_address}}</h2>
+
+
+
+    <div class="container  ">
+        <div class="row row mt-5">
+        {%for restaurant in restaurants %}
+            <div class="col-3">
+                <div class="card my-2 " style="width: 20rem;">
+                    <img src="{{restaurant['image_url']}}" class="card-img-top image rounded float mb-2" alt="...">
+                    <div class="middle">
+                        <div class="text " style="font-size: medium;"><a href="" class="text-decoration-none">{{restaurant["name"]}}</a></div>
+                    </div>
+
+
+                    <form method="post" action="{{url_for('like_restaurant')}}">
+                        <input type="hidden" name="restaurant_name" value="{{restaurant['name']}}">
+                        <input type="hidden" name="yelp_id" value="{{restaurant['id']}}">
+                        <input type="hidden"  name="meals_liked_id" value="{{ liked_meal.id}}">
+                        <input type="hidden" name="restaurant_address" value="{{restaurant['location']['display_address']}}">
+                        <input type="hidden"  name="rating" value="{{ restaurant['rating'] }}">
+                        <input type="hidden" name="restaurant_url" value="{{restaurant['url']}}">
+                        <input type="hidden"  name="photo" value="{{ restaurant['image_url'] }}"> 
+
+
+                        {%if restaurant['id'] in restaurants_yelp%}
+                          {%if restaurant['id'] not in soft_deleted_restaurants%}
+                            <button style="margin-left: 3px;" class="btn btn-danger btn-sm" type="submit" formaction="{{url_for('unlink_restaurant_meal',restaurant_yelp_id=restaurant['id'],meal_liked_id=liked_meal.id)}}" formmethod="post" >Remove</button>
+                          {%else%}
+                          <button style="margin-left: 3px;" class="btn btn-success btn-sm" type="submit">Add Fav</button>
+                          {%endif%}
+                        {%else%}
+                        <button style="margin-left: 3px;" class="btn btn-success btn-sm" type="submit">Add Fav</button>
+                        {%endif%}
+                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal-{{restaurant['id']}}">
+                            Check details
+                        </button>
+                        <button style="display: inline;" type="submit" class="btn btn-secondary btn-sm" formaction="/" formmethod="get">
+                        Go to Homepage
+                        </button>
+                    </form>
+                    
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal-{{restaurant['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">{{restaurant["name"]}}</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p><a href="{{restaurant['url']}}" target="_blank">Check Yelp link</a></p>
+                              <p>Categories: {{restaurant['categories'][0]["title"]}}</p>
+                              <p>Price: {{restaurant["price"]}}</p>  
+                              <p>Rating: {{restaurant["rating"]}}</p>
+                              <p>Reviews: {{restaurant["review_count"]}}</p>
+                              <p>Address:  {{",".join(restaurant["location"]["display_address"])}} </p>
+                              <p>Phone:  {{restaurant["display_phone"]}} </p>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+            </div>
+        {%endfor%}
+        </div>
+    </div>
+    
+{%endif%}
+
+{%endblock%}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+{%extends 'base.html' %}
+
+{% block content %}
+<h2 class="display-4">{{user.username}}'s favorite meals at {{restaurant.restaurant_name}}</h2>
+<a style="margin-top: 10px;" class="btn btn-secondary btn-sm" href="/users/{{user.id}}">Go back</a>
+
+{% if meals_liked|length == 0 %}
+    <h3 style="margin-top: 10px;">Sorry, no meals found</h3>
+  {% else %}
+    
+    <div class="container  ">
+        <div class="row mt-5">
+            {%for meal in meals_liked%}
+            <div class="col-4">
+                <div class="card" style="width:20rem;">
+                    <img src="{{meal.meal.image_url}}" class="card-img-top image rounded float mb-2" alt="...">
+                    <div class="middle">
+                        <div class="text" style="font-size: small;"><a href="" class="text-decoration-none">{{meal.meal.meal_name}}</a></div>
+                    </div>
+                    {%if g.user.id==user.id%}
+                    <form action="{{url_for('unlink_restaurant_meal',restaurant_yelp_id=restaurant.restaurant_yelp_id,meal_liked_id=meal.id)}}" method="post" >
+                    <button class="btn btn-danger btn-sm" >Remove it from the list</button>
+                    </form>
+                    {%endif%}
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+  {% endif %}
+
+
+
+
+{%endblock%}

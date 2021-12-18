@@ -1,0 +1,25 @@
+
+
+{%extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="display-4">Categories</h2>
+<div class="container  ">
+    <div class="row mt-5">
+        {% for category in categories%}
+        <div class="col-4" >
+            <div class="card" style="width: 20rem;">
+                <img src="{{category.category_image}}" class="card-img-top image rounded float mb-2" alt="...">
+                <div class="middle">
+                    <div class="text" style="font-size: medium;"><a href="{{url_for('show_category',category_id=category.category_id)}}" class="text-decoration-none">{{category.category_name}}</a></div>
+                </div>
+            </div>
+            
+        </div>
+        {%endfor%}
+    </div>
+</div>
+
+{%endblock%}
+
