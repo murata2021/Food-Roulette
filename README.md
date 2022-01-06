@@ -9,15 +9,15 @@ Please click on [the link](https://github.com/murata2021/Food-Roulette/blob/main
 ## Navigation
 Here the general process for a user:
 
-1.	Without signup and login users will be able to use the search bar to search meals in the database. User will be able to view the single meal and its ingredients. To see/write/like reviews users have to be logged in. 
-2.	Sign-up or login to the food roulette. It’ll prompt you on the home page. On the home page there are three options for users to proceed. 
-3.	User will be able to pick their random food from selected category, selected cuisine or in a totally random way from all meals in the database. After they select the option they want a random meal will appear on their screen. The user will pass it or like it. If they pass it, another meal will pop out on their screen. 
-4.	Liked meal will be added to the database. When user like the meal, based on their location preference, restaurants that serve this meal will be displayed.
-5.	User will be able to see each restaurant’s details. 
-6.	User can like the restaurants or he/she can move on.
-7.	After user like meal or meal&restaurant together, he/she will be able to write review. 
-8.	Each individual user will have their own user pages. User pages have four contents. User own reviews, user favorite meals, user favorite restaurants, reviews that user found useful. 
-9.	At anytime, users will be able to remove restaurants, meals from their favorite list.
+1. Without signup and login, the user will be able to use the search bar to search meals in the database. The user will be able to view the single meal and its ingredients. To see/write/like reviews the user has to be logged in.
+2. Sign-up or log in to the food roulette: It’ll prompt the user on the home page. On the home page, there are three options for the user to proceed.The user will be able to pick his/her random food from the selected category, selected cuisine, or in a totally random way from all meals in the database. 
+3. After he/she selects the option he/she wants, a random meal will appear on his/her screen. The user will pass it or like it. If he/she passes it, another meal will pop out on his/her screen.
+4. The liked meal will be added to the database. When the user likes the meal, based on the location preference, restaurants that serve this meal will be displayed.
+5. The user will be able to see each restaurant’s details.
+6. The user can like the restaurants or he/she can move on.
+7. After the user likes meal or meal&restaurant together, he/she will be able to write review.Each individual user will have their own user pages.
+8. User pages have four contents. The user's own reviews, user's favorite meals, user's favorite restaurants, reviews that user found useful.
+9. At any time, the user will be able to remove restaurants, meals from their favorite list.
 
 ## API List
 
@@ -26,7 +26,7 @@ Here the general process for a user:
 
 ## Technologies & Tools Used
 
-- 	HTML
+- HTML
 - CSS
 - JavaScript
 - PostgreSQL
