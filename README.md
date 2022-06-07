@@ -1,6 +1,6 @@
 # Food-Roulette
 
-Food Roulette is my capstone one project for my software engineering bootcamp with Springboard. It is a web application that helps its  users’ decision making processes on what to eat & where to eat. It is hosted on https://food-roulette-2021.herokuapp.com/
+Food Roulette is my capstone one project for my software engineering bootcamp with Springboard. It is a web application that helps users decide what to eat and where to eat by randomly suggesting meals based on the user’s selection of cuisine or food category, and showing the nearby restaurants offering the selected meals It is hosted on https://food-roulette-2021.herokuapp.com/
 
 ## Project Proposal
 
